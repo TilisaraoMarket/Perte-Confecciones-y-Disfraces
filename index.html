@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -107,6 +106,86 @@
             color: white;
             transform: scale(1.1);
         }
+
+        /* Estilos para el juego */
+        .game-area {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        #score-display, #time-display {
+            position: absolute;
+            padding: 10px;
+            background: rgba(255, 105, 180, 0.9);
+            color: white;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        #score-display {
+            top: 10px;
+            right: 10px;
+        }
+
+        #time-display {
+            top: 10px;
+            left: 10px;
+        }
+
+        .costume-item {
+            position: absolute;
+            font-size: 40px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            user-select: none;
+            z-index: 5;
+        }
+
+        .costume-item:hover {
+            transform: scale(1.2);
+        }
+
+        .costume-item.caught {
+            animation: catch-animation 0.3s forwards;
+        }
+
+        @keyframes catch-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .points-animation {
+            position: absolute;
+            color: var(--primary-color);
+            font-weight: bold;
+            pointer-events: none;
+            animation: points-float 1s forwards;
+        }
+
+        @keyframes points-float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-50px); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -127,6 +206,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#disfraces">Disfraces</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#juego">Puntos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contacto">Contacto</a>
@@ -237,6 +319,71 @@
         </div>
     </section>
 
+    <!-- Game Section -->
+    <section class="py-5 bg-light" id="juego">
+        <div class="container">
+            <h2 class="text-center mb-4">¡Juega y Gana Alquileres Gratis! 🎮</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <!-- Área del juego -->
+                            <div id="game-container" class="mb-4">
+                                <div id="game-area" class="game-area">
+                                    <div id="score-display">Puntos: <span id="score">0</span></div>
+                                    <div id="time-display">Tiempo: <span id="time">30</span>s</div>
+                                </div>
+                                
+                                <!-- Menú inicial del juego -->
+                                <div id="game-menu" class="text-center mb-4">
+                                    <button id="start-game" class="btn btn-lg contact-button mb-3">
+                                        🎮 ¡Jugar Ahora!
+                                    </button>
+                                    <p>¡Atrapa los disfraces para ganar puntos!</p>
+                                </div>
+
+                                <!-- Pantalla de fin de juego (inicialmente oculta) -->
+                                <div id="game-over" style="display: none;">
+                                    <h4>¡Juego Terminado! 🎉</h4>
+                                    <p class="lead">Tu puntaje: <span id="final-score">0</span></p>
+                                    <button id="share-score" class="btn btn-lg contact-button mb-3">
+                                        📸 Compartir en Historia
+                                    </button>
+                                    <button id="play-again" class="btn btn-lg btn-outline-primary">
+                                        🔄 Jugar de nuevo
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Información de premios -->
+                            <div class="rewards-info mt-4">
+                                <h4>¡Canjea tus puntos! 🎁</h4>
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-6 mb-3">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <h5>500 puntos</h5>
+                                                <p>15% descuento</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <h5>1000 puntos</h5>
+                                                <p>¡Alquiler Gratis!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="py-5" id="contacto">
         <div class="container">
@@ -278,9 +425,180 @@
        target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <script>
+        // Configuración del juego
+        const gameConfig = {
+            duration: 30,
+            spawnInterval: 1000,
+            costumes: ['👗', '🎭', '👑', '🦸‍♂️', '🧙‍♀️', '🦹‍♀️', '🤴', '👸', '🧚‍♀️'],
+            points: {
+                normal: 10,
+                special: 25
+            }
+        };
+
+        let gameState = {
+            score: 0,
+            timeLeft: gameConfig.duration,
+            isPlaying: false,
+            gameInterval: null,
+            spawnInterval: null
+        };
+
+        // Elementos del DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            const gameArea = document.getElementById('game-area');
+            const scoreDisplay = document.getElementById('score');
+            const timeDisplay = document.getElementById('time');
+            const startButton = document.getElementById('start-game');
+            const gameOverScreen = document.getElementById('game-over');
+            const finalScoreDisplay = document.getElementById('final-score');
+            const playAgainButton = document.getElementById('play-again');
+            const shareScoreButton = document.getElementById('share-score');
+
+            // Inicializar eventos
+            startButton.addEventListener('click', startGame);
+            playAgainButton?.addEventListener('click', startGame);
+            shareScoreButton?.addEventListener('click', shareScore);
+
+            function startGame() {
+                // Reiniciar estado
+                gameState.score = 0;
+                gameState.timeLeft = gameConfig.duration;
+                gameState.isPlaying = true;
+                
+                // Limpiar área de juego
+                gameArea.innerHTML = '';
+                document.getElementById('game-menu').style.display = 'none';
+                gameOverScreen.style.display = 'none';
+                
+                // Mostrar displays
+                updateScore();
+                updateTime();
+                
+                // Iniciar intervalos
+                gameState.gameInterval = setInterval(updateGame, 1000);
+                gameState.spawnInterval = setInterval(spawnCostume, gameConfig.spawnInterval);
+            }
+
+            function spawnCostume() {
+                if (!gameState.isPlaying) return;
+                
+                const costume = document.createElement('div');
+                costume.className = 'costume-item';
+                
+                // Elegir un disfraz aleatorio
+                const isSpecial = Math.random() < 0.2; // 20% de probabilidad de disfraz especial
+                costume.textContent = gameConfig.costumes[Math.floor(Math.random() * gameConfig.costumes.length)];
+                
+                // Posición aleatoria
+                const maxX = gameArea.clientWidth - 50;
+                const maxY = gameArea.clientHeight - 50;
+                costume.style.left = Math.random() * maxX + 'px';
+                costume.style.top = Math.random() * maxY + 'px';
+                
+                if (isSpecial) {
+                    costume.style.filter = 'drop-shadow(0 0 5px gold)';
+                    costume.dataset.special = 'true';
+                }
+                
+                // Evento de click
+                costume.addEventListener('click', () => catchCostume(costume));
+                
+                gameArea.appendChild(costume);
+                
+                // Eliminar después de un tiempo
+                setTimeout(() => {
+                    if (costume.parentNode === gameArea) {
+                        costume.remove();
+                    }
+                }, 2000);
+            }
+
+            function catchCostume(costume) {
+                if (!gameState.isPlaying) return;
+                
+                const points = costume.dataset.special ? gameConfig.points.special : gameConfig.points.normal;
+                gameState.score += points;
+                
+                // Animación de puntos
+                showPointsAnimation(costume, points);
+                
+                // Animación de captura
+                costume.classList.add('caught');
+                setTimeout(() => costume.remove(), 300);
+                
+                updateScore();
+            }
+
+            function showPointsAnimation(costume, points) {
+                const animation = document.createElement('div');
+                animation.className = 'points-animation';
+                animation.textContent = `+${points}`;
+                animation.style.left = costume.style.left;
+                animation.style.top = costume.style.top;
+                
+                gameArea.appendChild(animation);
+                setTimeout(() => animation.remove(), 1000);
+            }
+
+            function updateGame() {
+                gameState.timeLeft--;
+                updateTime();
+                
+                if (gameState.timeLeft <= 0) {
+                    endGame();
+                }
+            }
+
+            function updateScore() {
+                scoreDisplay.textContent = gameState.score;
+            }
+
+            function updateTime() {
+                timeDisplay.textContent = gameState.timeLeft;
+            }
+
+            function endGame() {
+                gameState.isPlaying = false;
+                clearInterval(gameState.gameInterval);
+                clearInterval(gameState.spawnInterval);
+                
+                finalScoreDisplay.textContent = gameState.score;
+                gameOverScreen.style.display = 'block';
+            }
+
+            function shareScore() {
+                // Crear canvas para la imagen compartible
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 500;
+                canvas.height = 300;
+                
+                // Dibujar fondo
+                ctx.fillStyle = '#ff69b4';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Dibujar texto
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 36px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('¡Jugué en Perte Disfraces!', canvas.width/2, 100);
+                ctx.fillText(`¡Hice ${gameState.score} puntos!`, canvas.width/2, 150);
+                ctx.font = '24px Arial';
+                ctx.fillText('¡Juega tú también y gana descuentos!', canvas.width/2, 200);
+                
+                // Convertir a imagen y descargar
+                const image = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = 'perte-game-score.png';
+                link.href = image;
+                link.click();
+                
+                alert('¡Imagen guardada! Compártela en tu historia de Instagram y etiquétanos para recibir tus puntos 🎉');
+            }
+        });
+    </script>
 </body>
-</html>
-</qodoArtifact>
-
-
-
+</html></qodoArtifact>
