@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perte Confecciones y Disfraces</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ff69b4;
+            --secondary-color: #4a4a4a;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1603006905003-be475563bc59?ixlib=rb-1.2.1');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .service-card {
+            border: none;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item {
+            transition: transform 0.3s;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .gallery-item img {
+            transition: all 0.4s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .contact-button {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .contact-button:hover {
+            background-color: #ff45a0;
+            color: white;
+        }
+
+        .social-links a {
+            color: var(--secondary-color);
+            margin: 0 10px;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* WhatsApp floating button styles */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            color: white;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Perte Confecciones</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#disfraces">Disfraces</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="inicio">
+        <div class="container">
+            <h1 class="display-4">Perte Confecciones y Disfraces</h1>
+            <p class="lead">Diseños únicos y disfraces personalizados para todas tus ocasiones especiales</p>
+            <a href="#contacto" class="contact-button">Contáctanos</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-5" id="servicios">
+        <div class="container">
+            <h2 class="text-center mb-5">Nuestros Servicios</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-tshirt fa-3x mb-3" style="color: var(--primary-color)"></i>
+                            <h5 class="card-title">Confección a Medida</h5>
+                            <p class="card-text">Diseños personalizados adaptados a tus necesidades y preferencias.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-mask fa-3x mb-3" style="color: var(--primary-color)"></i>
+                            <h5 class="card-title">Disfraces</h5>
+                            <p class="card-text">Amplia variedad de disfraces para todas las edades y ocasiones.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-pencil-ruler fa-3x mb-3" style="color: var(--primary-color)"></i>
+                            <h5 class="card-title">Diseños Exclusivos</h5>
+                            <p class="card-text">Creaciones únicas y originales para destacar en cualquier evento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Costumes Gallery Section -->
+    <section class="bg-light py-5" id="disfraces">
+        <div class="container">
+            <h2 class="text-center mb-5">Nuestros Disfraces</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-item">
+                        <img src="images/466949864_1133755258468440_1534146706571962121_n.png" 
+                             alt="Disfraz elegante" 
+                             class="img-fluid rounded shadow">
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-item">
+                        <img src="images/466688946_1384096352553263_9089964872792243320_n.png" 
+                             alt="Disfraz creativo" 
+                             class="img-fluid rounded shadow">
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-item">
+                        <img src="images/465046768_2334612836881313_5558547196113236817_n.png" 
+                             alt="Disfraz infantil" 
+                             class="img-fluid rounded shadow">
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-item">
+                        <img src="images/466476723_1083979806563012_7788845930618615045_n.png" 
+                             alt="Disfraz especial" 
+                             class="img-fluid rounded shadow">
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-item">
+                        <img src="images/464750267_531042619562742_4766804839832235592_n.png" 
+                             alt="Disfraz temático" 
+                             class="img-fluid rounded shadow">
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-item">
+                        <img src="images/465663313_567444125804965_7432167613545088149_n.png" 
+                             alt="Disfraz personalizado" 
+                             class="img-fluid rounded shadow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5" id="contacto">
+        <div class="container">
+            <h2 class="text-center mb-5">Contacto</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="social-links mb-4">
+                        <a href="https://www.instagram.com/perte.confecciones.disfraces/" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/5492664505510" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                    <p class="lead">¡Contáctanos para hacer realidad tu diseño!</p>
+                    <p>WhatsApp: +54 9 266 4505510</p>
+                    <p>Síguenos en Instagram: @perte.confecciones.disfraces</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Perte Confecciones y Disfraces. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5492664505510?text=%E2%9C%A8%20%C2%A1Bienvenidos%20a%20Perte%20Confecciones%20y%20Disfraces!%20%E2%9C%A8%0A%0A%F0%9F%8E%AD%20*Especialistas%20en%3A*%0A%F0%9F%91%97%20Disfraces%20personalizados%0A%F0%9F%8E%A8%20Dise%C3%B1os%20exclusivos%0A%F0%9F%93%8F%20Confecci%C3%B3n%20a%20medida%0A%F0%9F%8E%AA%20Disfraces%20para%20eventos%20especiales%0A%0A%F0%9F%92%AB%20Me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20disfraces" 
+       class="whatsapp-float" 
+       target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+</html>
+</qodoArtifact>
+
+
+
